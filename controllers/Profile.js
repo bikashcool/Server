@@ -24,7 +24,7 @@ exports.updateProfile = async (req, res) => {
         await user.save()
 
         // Update the profile field
-        profile.dataOfBirth = dataOfBirth
+        profile.dateOfBirth = dateOfBirth
         profile.about = about
         profile.contactNumber = contactNumber
         profile.gender = gender
@@ -84,6 +84,27 @@ exports.deleteAccount = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "User cannot be deleted successfully",
+        })
+    }
+}
+
+exports.getAllUserDetails = async (req, res) => {
+    try{
+        const id = req.user.id;
+        const userDetails = await User.findById(id)
+        .populate("additionalDetails")
+        .exec()
+
+        console.log(userDetails);
+        res.status(200).json({
+            success: true,
+            message: "User Data fetched Successfully",
+            data: userDetails,
+        })
+    }catch(error){
+        return res.status(500).json({
+            success: false,
+            message: error.message,
         })
     }
 }
