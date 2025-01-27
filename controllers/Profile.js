@@ -8,7 +8,7 @@ exports.updateProfile = async (req, res) => {
         const {
             firstName = "",
             lastName = "",
-            dataOfBirth = "",
+            dateOfBirth = "",
             about = "",
             contactNumber = "",
             gender = "",

@@ -4,6 +4,7 @@ const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailSender = require("../utils/mailSender");
+const Profile = require("../models/Profile");
 require("dotenv").config();
 
 
@@ -126,7 +127,7 @@ exports.sendOTP = async(req, res) => {
             specialChars: false,
         })
 
-        const result = OTP.findOne({otp: otp})
+        const result = await OTP.findOne({otp: otp})
         console.log("Result is Generate otp Func")
         console.log("OTP", otp)
         console.log("Result", result)
