@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
-const bcryt = require("bcrypt");
+const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
 exports.resetPasswordToken = async (req, res) => {
@@ -79,7 +79,7 @@ exports.resetPassword = async (req, res) => {
         }
 
         // Token expiry check
-        if(!(userDetails.resetPasswordExpires < Date.now())){
+        if(!(userDetails.resetPasswordExpires > Date.now())){
             return res.status(403).json({
                 success: false,
                 message: `Token is expired, please Regenerate the Token`,
