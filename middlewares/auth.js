@@ -18,7 +18,7 @@ exports.auth = async (req, res, next) => {
 
         try{
             // verify the jwt using the secret key stored in env variable
-            const decode = await jwt.verify(token, process.env.JWT_SECRET);
+            const decode = jwt.verify(token, process.env.JWT_SECRET);
             console.log(decode);
             // storing the decoded jwt payload in the request object for further user
             req.user = decode;
