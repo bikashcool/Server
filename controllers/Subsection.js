@@ -8,7 +8,6 @@ exports.createSubSection = async (req, res) => {
         // fetch data
         const {sectionId, title, description} = req.body;
         const video = req.files.video
-
         // check if all data are provided
         if(!sectionId || !title || !description || !video){
             return res.status(404).json({

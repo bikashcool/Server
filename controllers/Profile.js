@@ -46,7 +46,7 @@ exports.deleteAccount = async (req, res) => {
     try{
         const id = req.user.id;
         console.log(id)
-        const user= await User.findbyId({_id: id});
+        const user= await User.findById({_id: id});
         if(!user){
             return res.status(404).json({
                 success: false,
@@ -56,7 +56,7 @@ exports.deleteAccount = async (req, res) => {
 
         // delete associated profile with user
         await Profile.findByIdAndDelete({
-            _id: new mongoose.Types.ObjectId(user.additionalDetails),
+            _id: user.additionalDetails
         })
         for(const courseId of user.courses){
             await Course.findByIdAndUpdate(
@@ -68,7 +68,7 @@ exports.deleteAccount = async (req, res) => {
 
         await User.findByIdAndDelete({_id: id})
         return res.status(200).json({
-            success: false,
+            success: true,
             message: "User deleted Successfully",
         })
     }catch(error){
