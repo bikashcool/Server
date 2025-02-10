@@ -5,7 +5,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailSender = require("../utils/mailSender");
 const Profile = require("../models/Profile");
+const {passwordUpdated} = require("../mail/templates/passwordUpdate");
 require("dotenv").config();
+
 
 
 // Sign Up Logic for Registering User
@@ -258,8 +260,8 @@ exports.changePassword = async (req, res) => {
                 updateUserDetails.email,
                 "Password for your account is been updated",
                 passwordUpdated(
-                    updatedUserDetails.email,
-                    `password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+                    updateUserDetails.email,
+                    `password updated successfully for ${updateUserDetails.firstName} ${updateUserDetails.lastName}`
                 )
             )
             console.log("Email sent Successfully", emailResponse.response);
